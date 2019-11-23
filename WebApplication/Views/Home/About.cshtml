@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Css{
+    <link rel="stylesheet" type="text/css" href="~/css/user_about.css">
+}
+<div class="k main-form">
+    <div class="k bd-t-inf">
+        <span class="k t-inf-contact">Về chúng tôi</span>
+        <span class="k t-name-cpn">Hoang Hen</span>
+        <span class="k t-name-cpn">Facebook: <a>https://www.facebook.com/hen.ta.5891</a></span>
+        <span class="k t-name-cpn">Email: <a>tavanhoanghen99@gmail.com</a></span>
+        <span class="k t-name-cpn">Website: <a>https://hoanghenit.com.vn</a></span>
+    </div>
+    <div id="googleMap"></div>
+</div>
+@section Scripts{
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa7l5u2H4x6NWksxQmzAp-GOP7H-s3slY&callback=initMap" async defer></script>
+    <script type="text/javascript">
+        function initMap() {
+            // The location of Uluru
+            var uluru = { lat: 12.571526, lng: 108.166024 };
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('googleMap'), { zoom: 17, center: uluru });
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({ position: uluru, map: map });
+        }
+    </script>
+}

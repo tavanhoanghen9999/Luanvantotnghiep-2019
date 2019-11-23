@@ -1,0 +1,244 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section Css{
+    <link rel="stylesheet" type="text/css" href="~/css/ad_product.css">
+}
+<div class="k main-form">
+    <div class="k l-form" id="f-ln-prd">
+        <div class="k bd-catagory">
+            <span class="k t t-nt-tt-pr">Product Category</span>
+            <div class="k ic-add-category" data-toggle="modal" data-target="#myModal2"></div>
+        </div>
+        @*<div class="k bd-prd">
+                <div class="k ic-pdt"></div>
+                <span class="k t t-name-pr">Milk tea</span>
+                <i class="fa fa-trash dlt-cata" aria-hidden="true"></i>
+                <div class="k ic-next"></div>
+            </div>*@
+    </div>
+    <div class="k r-form" id="f-it-products">
+        <div class="k ic-add-pdt" data-toggle="modal" data-target="#myModal1"></div>
+        <span class="k t t-add-pdt" data-toggle="modal" data-target="#myModal1" onclick="createPr()">Add Product</span>
+        @*<div class="k item-pr-form">
+                <div class="k img-pdt"></div>
+                <div class="k f-pdt-name">
+                    <span class="k t name-product">Trà sữa trân châu đường đen</span>
+                    <span class="k t total-pdt">Total: 35</span>
+                </div>
+                <div class="k f-pdt-name">
+                    <span class="k t name-product">Saleprice: 20.000 Đ</span>
+                    <span class="k t total-pdt">Import price: 10.000 Đ</span>
+                    <span class="k t total-pdt">Manufacturing date: 12/01/2019</span>
+                    <span class="k t t-warning">Expiry date: 12/12/2019</span>
+                    <div class="k ic_delete_pdt"></div>
+                    <div class="k ic_edit_pdt"></div>
+                </div>
+            </div>*@
+    </div>
+</div>
+
+@*add category*@
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add category</h4>
+            </div>
+            <div class="modal-body">
+                <span class="k t ctl-tt">Category name</span>
+                <input class="k input-ctg" type="text" id="ip-name-ctl" />
+                <span class="k bnt_add_ctg" onclick="insertLnPr()">Save</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@*add products*@
+<div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add products</h4>
+            </div>
+            <div class="modal-body">
+                <div class="k bd-add-pdt">
+                    <span class="k t pdt-tt">Product name</span>
+                    <input class="k input-pdt" type="text" id="pr-name" />
+                </div>
+                <div class="k bd-add-pdt">
+                    <span class="k t pdt-tt">Specification</span>
+                    <input class="k input-pdt" type="text" id="pr-note" />
+                </div>
+                <div class="k bd-add-pdt-pc">
+                    <span class="k t pdt-tt-pc">LineProduct</span>
+                    <select class="k input-pdt-pc" id="sl-lnpr">
+                        @*<option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>*@
+                    </select>
+                </div>
+                <div class="k bd-add-pdt-pc">
+                    <span class="k t pdt-tt-pc" style="text-align:center;">Total</span>
+                    <input class="k input-pdt-pc" type="text" id="total-pr" />
+                </div>
+                <div class="k bd-add-pdt-pc">
+                    <span class="k t pdt-tt-pc">Sale price</span>
+                    <input onkeyup="changeKeyPress(this)" class="k input-pdt-pc" type="text" placeholder="đ" id="sale-price" />
+                </div>
+                <div class="k bd-add-pdt-pc">
+                    <span class="k t pdt-tt-pc" style="text-align:center;">Import price</span>
+                    <input class="k input-pdt-pc" type="text" placeholder="đ" id="import-price" onkeyup="changeKeyPress(this)" />
+                </div>
+
+                <div class="k bd-add-pdt">
+                    <span class="k t pdt-tt">Old price</span>
+                    <input class="k input-pdt" type="text" id="pr-oldprice" placeholder="đ" onkeyup="changeKeyPress(this)" />
+                </div>
+
+                <div class="k bd-add-pdt">
+                    <span class="k t pdt-tt">Manufacturing date</span>
+                    <div class="form-group">
+                        <div class='input-group date' id='datepicker'>
+                            <input type='text' class="form-control" id="mn-day" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="k bd-add-pdt">
+                    <span class="k t pdt-tt">Expiry date</span>
+                    <div class="form-group">
+                        <div class='input-group date' id='datepicker1'>
+                            <input type='text' class="form-control" id="ex-day" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="k f-select-img">
+                    <span class="k t pdt-tt" style="width:100%;margin-bottom:10px;">Image products</span>
+                    <i class="k fa fa-file-image-o" aria-hidden="true" id="img-main">
+                        <span class="bnt-sl-img" onclick="getImage()">browse</span>
+                        <input id="multi-file" class="hidden" type="file" accept="image/*" multiple="">
+                    </i>
+                    <div class="k f-img-view" id="f-img-view">
+                        <div class="k bd-img-it-lv2">
+                        </div>
+                        <div class="k bd-img-view-it-add">
+                            <div class="k img-view-it" style="background-image:url(/images/home/ic_add_img.png)" onclick="getImageIt()" id="bnt-add-it-img"></div>
+                            <input id="multi-file-it" class="hidden" type="file" accept="image/*" multiple="">
+                            @*<div class="k bd-img-view-it">
+                        <div class="k img-view-it"></div>
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </div>*@
+                        </div>
+                    </div>
+                </div>
+                <span class="k bnt_add_ctg" onclick="insertProduct()">Save</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@*update productsS*@
+<div class="modal fade" id="myModal-ud" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update product</h4>
+            </div>
+            <div class="modal-body">
+                <div class="k bd-add-pdt">
+                    <span class="k t pdt-tt">Product name</span>
+                    <input class="k input-pdt" type="text" id="pr-name-ud" />
+                </div>
+                <div class="k bd-add-pdt-pc">
+                    <span class="k t pdt-tt-pc">LineProduct</span>
+                    <select class="k input-pdt-pc" id="sl-lnpr-ud"></select>
+                </div>
+                <div class="k bd-add-pdt-pc">
+                    <span class="k t pdt-tt-pc" style="text-align:center;">Total</span>
+                    <input class="k input-pdt-pc" type="text" id="total-pr-ud" />
+                </div>
+                <div class="k bd-add-pdt-pc">
+                    <span class="k t pdt-tt-pc">Sale price</span>
+                    <input class="k input-pdt-pc" type="text" placeholder="đ" id="sale-price-ud" onkeyup="changeKeyPress(this)" />
+                </div>
+                <div class="k bd-add-pdt-pc">
+                    <span class="k t pdt-tt-pc" style="text-align:center;">Import price</span>
+                    <input class="k input-pdt-pc" type="text" placeholder="đ" id="import-price-ud" onkeyup="changeKeyPress(this)" />
+                </div>
+
+                <div class="k bd-add-pdt">
+                    <span class="k t pdt-tt">Old price</span>
+                    <input class="k input-pdt" type="text" id="pr-oldprice-ud" onkeyup="changeKeyPress(this)" />
+                </div>
+                <div class="k bd-add-pdt">
+                    <div class="k bd-add-pdt">
+                        <span class="k t pdt-tt">Note</span>
+                        <input class="k input-pdt" type="text" id="pr-note-ud" />
+                    </div>
+                </div>
+
+                <div class="k bd-add-pdt">
+                    <span class="k t pdt-tt">Manufacturing date</span>
+                    <div class="form-group">
+                        <div class='input-group date' id='datepicker-ud'>
+                            <input type='text' class="form-control" id="mn-day-ud" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="k bd-add-pdt">
+                    <span class="k t pdt-tt">Expiry date</span>
+                    <div class="form-group">
+                        <div class='input-group date' id='datepicker1-ud'>
+                            <input type='text' class="form-control" id="ex-day-ud" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="k f-select-img">
+                    <span class="k t pdt-tt" style="width:100%;margin-bottom:10px;">Image products</span>
+                    <i class="k fa fa-file-image-o" aria-hidden="true" id="img-main-ud">
+                        <span class="bnt-sl-img" onclick="getImageUd()">browse</span>
+                        <input id="multi-file-ud" class="hidden" type="file" accept="image/*" multiple="">
+                    </i>
+                    <div class="k f-img-view" id="f-img-view-ud">
+                        <div class="k bd-img-it-lv2-ud" id="list-img-it-ud">
+                        </div>
+                        <div class="k bd-img-view-it-add">
+                            <div class="k img-view-it" style="background-image:url(/images/home/ic_add_img.png)" onclick="getImageItUd()" id="bnt-add-it-img-ud"></div>
+                            <input id="multi-file-it-ud" class="hidden" type="file" accept="image/*" multiple="">
+                        </div>
+                    </div>
+                </div>
+                <span class="k bnt_add_ctg" onclick="updateProduct()">Save</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Script{
+    <script src="~/js/adproducts.js"></script>
+}
